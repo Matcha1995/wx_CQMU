@@ -1,0 +1,100 @@
+
+.container{
+  /* height:800rpx; */
+  /* background: #ccc; */
+  padding: 20rpx 0;
+
+}
+.container .wrap{
+  width:95%;
+}
+.container .wrap .user {
+  background: #ffffff;
+  padding: 30rpx 25rpx 30rpx 0;
+  border:1rpx solid #dcdcdc;
+  border-radius: 20rpx;
+  box-shadow:  -5rpx -5rpx 10rpx #ccc;
+}
+
+.flex-item{
+  text-align:center;
+  flex-grow:1;
+  display: inline-block;
+}
+.user .userinfo-avatar{
+  flex: 1;
+  display: inline-block;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius:80rpx;
+  vertical-align: middle;
+  margin: 0 35rpx 0 35rpx;
+}
+.user .user-info{
+  flex: 5;
+  text-align: left;
+}
+.user .user-info text{
+  display: block;
+}
+.user .user-info .userinfo-nickname{
+  padding: 8rpx 0 10rpx 0;
+  font-size: 30rpx;
+  color: #818A8F; 
+}
+.container .page__bd{
+  /* border:1rpx solid #ccc; */
+  margin-top:30rpx;
+}
+.image-style{
+  margin-right: 5px;
+  vertical-align: middle;
+  width:30rpx; 
+  height: 30rpx;
+}
+.weui-cell__bd{
+  font-size: 32rpx;
+  color:rgb(74, 76, 77);
+  margin-left:15rpx;
+  letter-spacing: 3rpx;
+}
+.weui-cell_hidden{
+  font-size: 30rpx
+}
+.view_show{
+  display: block;
+}
+.view_hide{
+  display:none;
+}
+.hidden-radio .weui-cell_link .weui-cell__bd{
+  color:#7D83C1;
+}
+.time-style{
+  font-size:32rpx;
+  color:rgb(74, 76, 77);
+}
+
+.btn-edit{
+  background-color:orangered;
+  color:white;
+  margin-left:350rpx;
+  margin-right:50rpx;
+  display:hidden;
+}
+
+/* 弹出框样式 */
+.modal-input{
+  border:1px solid #bbb;
+}
+input{
+  height:1.8rem;
+  margin-left:10rpx;
+  color:#666;
+}
+.placeholderStyle{
+  color:#ccc;
+}
+
+/* 时间弹出框 */
+

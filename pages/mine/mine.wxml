@@ -1,0 +1,122 @@
+<view class="container">
+  <view class="wrap">
+    <view class="user flex-wrp">
+      <view class="avatar flex-item">
+        <!-- <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>  -->
+        <open-data class="userinfo-avatar" type="userAvatarUrl"></open-data>
+      </view>
+      <view class="user-info flex-item">
+        <!-- <text class="userinfo-nickname">{{userInfo.nickName}}</text> -->
+        <open-data class="userinfo-nickname" type="userNickName" lang="zh_CN"></open-data>
+      </view>
+    </view>
+    <view class="page__bd">
+      <view class="weui-cells weui-cells_after-title bind-style">
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap='showHidden'>
+          <view class="weui-cell__hd">
+            <image src="../../images/id.png" class="image-style" ></image>
+          </view>
+          <view class="weui-cell__bd">绑定患者编号</view>
+          <view class="weui-cell__ft">
+            <image src="{{showImage?'../../images/arrow-right.png':'../../images/arrow-down.png'}}" class="image-style"></image>
+          </view>  
+        </view>
+        </view>
+        <view class="weui-cells weui-cells_after-title hidden-radio {{showView?'view_show':'view_hide'}}">
+          <radio-group bindchange="radioChange">
+            <label class="weui-cell weui-check__label" wx:for="{{radioItems}}" wx:key="index">
+              <radio class="weui-check" value="{{item.id}}" data-id="{{item.id}}" checked="{{item.checked}}"/>
+                <view class="weui-cell__bd weui-cell_hidden">{{item.pat_id}}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+                  <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+                </view>
+            </label>
+          </radio-group>
+          <view class="weui-cell weui-cell_link" bindtap="addID">
+            <view class="weui-cell__bd">添加更多</view>
+          </view>
+          <!-- 弹出输入框 -->
+          <modal id="modal" hidden="{{hiddenmodalput}}" title="绑定患者编号" confirm-text="确定" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">  
+            <view class="modal-input">
+              <input type='text' placeholder="请输入需要绑定的患者编号" placeholder-class="placeholderStyle" bindinput='getID' auto-focus/>
+            </view>
+          </modal>
+        </view>
+
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap='showTel'>
+                <view class="weui-cell__hd">
+                    <image src="../../images/telephone.png" class="image-style"></image>
+                </view>
+                <view class="weui-cell__bd">绑定联系人</view>
+                <view class="weui-cell__ft">
+                  <image src="{{showLinkImage?'../../images/arrow-right.png':'../../images/arrow-down.png'}}" class="image-style"></image>
+                </view>
+            </view>
+        </view>
+        <view class="weui-cells weui-cells_after-title hidden-radio {{showLinkView?'view_show':'view_hide'}}">
+          <block class="weui-panel__bd" wx:for="{{list}}" data-item="item" wx:for-index="idx" wx:key="list">
+            <view class="weui-cell">
+              <view class="weui-cell__bd">{{item.telephone}}</view>
+            </view>
+          </block>
+          <view class="weui-cell weui-cell_link" bindtap="addTel">
+            <view class="weui-cell__bd">添加更多</view>
+          </view>
+        </view>
+        
+        <modal id="modal" hidden="{{hiddenTelModal}}" title="绑定联系人" confirm-text="确定" cancel-text="取消" bindcancel="telCancel" bindconfirm="telConfirm">  
+            <view class="modal-input">
+              <input type='text' placeholder="请输入需要绑定联系人电话" placeholder-class="placeholderStyle" bindinput='getID' auto-focus/>
+            </view>
+          </modal>
+
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap='showTimeSetting'>
+                <view class="weui-cell__hd">
+                    <image src="../../images/setting.png" class="image-style"></image>
+                </view>
+                <view class="weui-cell__bd">饭点时间设置</view>
+                <view class="weui-cell__ft">
+                  <image src="../../images/arrow-right.png" class="image-style"></image>
+                </view>
+            </view>
+        </view>
+
+        <!-- 弹出饭点时间设定框 -->
+        <modal id="modal" hidden="{{hiddenTimeModal}}" title="设置饭点时间" confirm-text="确定" cancel-text="取消" bindcancel="cancelTime" bindconfirm="confirmTime">  
+          <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                  <view class="weui-label">早饭时间</view>
+              </view>
+              <view class="weui-cell__bd weui-cell__settime">
+                  <picker value="{{breakfastTimeIndex}}" bindchange="bindBreakfastTime" range="{{breakfastTime}}">
+                    <view class="weui-input">{{breakfastTime[breakfastTimeIndex]}}</view>
+                  </picker>
+              </view>
+          </view>
+          <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">午饭时间</view>
+              </view>
+              <view class="weui-cell__bd">
+                <picker value="{{lunchTimeIndex}}" bindchange="bindLunchTime" range="{{lunchTime}}">
+                  <view class="weui-input">{{lunchTime[lunchTimeIndex]}}</view>
+                </picker>
+              </view>
+          </view>
+          <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__hd">
+                <view class="weui-label">晚饭时间</view>
+              </view>
+              <view class="weui-cell__bd">
+                <picker value="{{supperTimeIndex}}" bindchange="bindSupperTime" range="{{supperTime}}">
+                  <view class="weui-input">{{supperTime[supperTimeIndex]}}</view>
+                </picker>
+              </view>
+          </view>
+        </modal>
+
+    </view>
+  </view>
+</view>

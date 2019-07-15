@@ -1,0 +1,42 @@
+<view class="page">
+  <view class="weui">
+    <view class="weui-flex__item" bindtap='toDetail'>
+      <view class="image-style">
+        <image src="../../images/drug.png" class="image-style"></image>
+      </view>    
+      <view class="text-style">
+        <text>服药情况</text>
+      </view>      
+    </view>
+  </view>
+  <view class="weui">
+    <view class="weui-flex__item" bindtap='toWarning'>
+      <view class="image-style">
+        <image src="../../images/error.png" class="image-style"></image>
+      </view>    
+      <view class="text-style">
+        <text>服药告警</text>
+      </view>
+    </view>
+  </view>
+  <view class="weui">
+    <view class="weui-flex__item" bindtap='toRemind'>
+      <view class="image-style">
+        <image src="../../images/remind.png" class="image-style"></image>
+      </view>    
+      <view class="text-style">
+        <text>开药提醒</text>
+      </view>
+    </view>
+  </view>
+  <view class="weui">
+    <view class="weui-flex__item" bindtap='toHistory'>
+      <view class="image-style">
+        <image src="../../images/history.png" class="image-style"></image>
+      </view>    
+      <view class="text-style">
+        <text>历史管理</text>
+      </view>
+    </view>
+  </view>
+</view>

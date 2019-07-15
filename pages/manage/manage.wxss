@@ -1,0 +1,56 @@
+page{
+  width:100%;
+  height:100%;
+  /* background: pink; */
+}
+.page{
+  width:100%;
+  height:100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;  
+}
+.weui{
+  width:100%;
+  height: 25%;
+  /* margin-top:50rpx; */
+  /* border-radius: 30rpx; */
+  box-sizing: border-box;
+  border-bottom:5rpx solid #dcdcdc;
+  /* box-shadow: 0 7rpx 10rpx #ccc;    */
+}
+/* .weui:last-child{
+  border-style: none;
+} */
+/* .weui:nth-child(2),.weui:last-child{
+  width: 50%;
+  margin-right: 0;
+} */
+.weui-flex__item{
+  width:100%;
+  /* height:100rpx; */
+  height:100%;
+  display: flex;
+  flex-direction: column;/*属性决定主轴方向，默认为水平方向*/
+  align-items: center;
+  justify-content: center;
+}
+.image-style{
+  display:flex;
+  align-items: center;
+}
+image{
+  width:70rpx;
+  height:70rpx;
+  padding-bottom:30rpx;
+}
+.text-style{
+  display:flex;
+  align-items: center;
+}
+text{
+  font-size: 32rpx;
+  letter-spacing: 10rpx;
+  color:#707070;
+}

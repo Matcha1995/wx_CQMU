@@ -1,0 +1,20 @@
+.page{
+  padding:0;
+}
+.page__hd-style{
+  padding:15px;
+  font-size:35rpx; 
+}
+.weui-panel__hd,.weui-media-box__desc{
+  color:#666;
+  font-size:30rpx;
+}
+.weui-media-box{
+  border-bottom: 1px solid #ccc;
+  /* border-top: 1px solid #ccc; */
+  box-shadow: 0 5rpx 10rpx #ccc;
+  margin:15rpx;
+}
+.weui-media-box__desc{
+  margin-top:20rpx;
+}
