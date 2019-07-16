@@ -123,14 +123,21 @@ Page({
 
   //下拉刷新
   onPullDownRefresh:function(){
-    let id = this.data.theFirstId;
-    console.log(id)
+    console.log(this.data.news)
+    let news = this.data.news
+    let length = news.length
+    console.log(length)
+    let theFirstId = news[0].id
+    let theLastId = news[length-1].id
+    console.log(theFirstId, theLastId)
     //显示顶部刷新图标
     wx.showNavigationBarLoading();
-    app.fly.request(app.globalData.apiURL + 'getLatestNews', { theFirstId: id })
+    app.fly.request(app.globalData.apiURL + 'getLatestNews', { theFirstId: theFirstId, theLastId: theLastId })
       .then(res=>{
+        let length = res.data.data.length
+        console.log(length)
         this.setData({
-          news: res.data
+          news: res.data.data,
         })
         wx.hideNavigationBarLoading();
       })
@@ -140,22 +147,28 @@ Page({
   },
 
   // //上拉加载更多
-  // onReachBottom:function(){
-  //   //显示加载图标
-  //   wx.showLoading({
-  //     title: '加载中',
-  //   });
-  //   app.fly.request(app.globalData.apiURL + 'getHistoryNews', { theLastId: id })
-  //     .then(res => {
-  //       this.setData({
-  //         news: res.data
-  //       })
-  //       wx.hideNavigationBarLoading();
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
-  //     })
-  // },
+  onReachBottom:function(){
+    console.log(this.data.news)
+    let news = this.data.news
+    let length = news.length
+    console.log(length)
+    let theFirstId = news[0].id
+    let theLastId = news[length - 1].id
+    console.log(theFirstId, theLastId)
+    wx.showLoading({
+      title: '加载中',
+    });
+    app.fly.request(app.globalData.apiURL + 'getHistoryNews', { theFirstId: theFirstId, theLastId: theLastId })
+      .then(res => {
+        this.setData({
+          news: res.data.data
+        })
+        wx.hideLoading()
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
 
   onLoad: function (options) {
     // wx.showLoading({
@@ -168,16 +181,19 @@ Page({
     app.fly.request(app.globalData.apiURL + 'getNews')
       .then(res =>{
         console.log(res.data.data)
+        // 获取数组长度
+        let length = res.data.data.length
         this.setData({
           news: res.data.data,
-          theFirstId: res.data.data[0].id
+          theFirstId: res.data.data[0].id,  //最大的id
+          theLastId: res.data.data[length - 1].id, //最小的id
         })
-        console.log(res.data.data[0].id)
-        console.log(res.data.data[length-1].id)
-        wx.setStorageSync('theFirstId', res.data.data[0].id);
-        wx.setStorageSync('theLastId', res.data.data[length - 1].id);
-        console.log("本地存储的id为：" + wx.getStorageSync('theFirstId'))
-        console.log("本地存储的id为：" + wx.getStorageSync('theLastId'))
+        // console.log(res.data.data[0].id)
+        // console.log(res.data.data[length-1].id)
+        // wx.setStorageSync('theFirstId', res.data.data[0].id);
+        // wx.setStorageSync('theLastId', res.data.data[length - 1].id);
+        // console.log("本地存储的id为：" + wx.getStorageSync('theFirstId'))
+        // console.log("本地存储的id为：" + wx.getStorageSync('theLastId'))
       })
       .catch(err=>{})
   },

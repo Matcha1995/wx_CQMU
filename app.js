@@ -52,12 +52,21 @@ App({
           //参数错误
         } else if (response.data.statusCode === _this.globalData.resp.paraError) {
           return newFly.request(response.request);
-        } else if (response.data.statusCode ===301){
+        } 
+        else if (response.data.statusCode ===301){
           wx.showToast({
             icon: "none",
             title: "重复绑定"
           })
-        }else {
+          return response;
+        } else if (response.data.statusCode === 302){
+          wx.showToast({
+            icon: "none",
+            title: "没有该患者"
+          })
+          // console.log("没有该患者")
+        }
+        else {
           return response;
         }
       },

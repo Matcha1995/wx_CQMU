@@ -24,8 +24,8 @@
         </view>
         <view class="weui-cells weui-cells_after-title hidden-radio {{showView?'view_show':'view_hide'}}">
           <radio-group bindchange="radioChange">
-            <label class="weui-cell weui-check__label" wx:for="{{radioItems}}" wx:key="index">
-              <radio class="weui-check" value="{{item.id}}" data-id="{{item.id}}" checked="{{item.checked}}"/>
+            <label class="weui-cell weui-check__label" wx:for="{{radioItems}}" wx:key="index" wx:for-index="idx" data-index="{{idx}}" bindlongpress="deletePatId">
+              <radio class="weui-check" value="{{item.pat_id}}" checked="{{item.checked}}" />
                 <view class="weui-cell__bd weui-cell_hidden">{{item.pat_id}}</view>
                 <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
                   <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
@@ -38,7 +38,7 @@
           <!-- 弹出输入框 -->
           <modal id="modal" hidden="{{hiddenmodalput}}" title="绑定患者编号" confirm-text="确定" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">  
             <view class="modal-input">
-              <input type='text' placeholder="请输入需要绑定的患者编号" placeholder-class="placeholderStyle" bindinput='getID' auto-focus/>
+              <input type='text' placeholder="请输入需要绑定的患者编号" placeholder-class="placeholderStyle" bindinput='getPatId' auto-focus/>
             </view>
           </modal>
         </view>
@@ -55,14 +55,20 @@
             </view>
         </view>
         <view class="weui-cells weui-cells_after-title hidden-radio {{showLinkView?'view_show':'view_hide'}}">
-          <block class="weui-panel__bd" wx:for="{{list}}" data-item="item" wx:for-index="idx" wx:key="list">
+          <!-- <block class="weui-panel__bd" wx:for="{{list}}" data-item="item" wx:for-index="idx" wx:key="list"> -->
             <view class="weui-cell">
-              <view class="weui-cell__bd">{{item.telephone}}</view>
+              <view class="weui-cell__bd weui-cell_link telephone" bindtap="updateTel1">{{list.telephone1}}</view>
             </view>
-          </block>
-          <view class="weui-cell weui-cell_link" bindtap="addTel">
+            <view class="weui-cell">
+              <view class="weui-cell__bd weui-cell_link telephone" bindtap="updateTel2">{{list.telephone2}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd weui-cell_link telephone" bindtap="updateTel3">{{list.telephone3}}</view>
+            </view>
+          <!-- </block> -->
+          <!-- <view class="weui-cell weui-cell_link" bindtap="addTel">
             <view class="weui-cell__bd">添加更多</view>
-          </view>
+          </view> -->
         </view>
         
         <modal id="modal" hidden="{{hiddenTelModal}}" title="绑定联系人" confirm-text="确定" cancel-text="取消" bindcancel="telCancel" bindconfirm="telConfirm">  

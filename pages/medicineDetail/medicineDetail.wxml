@@ -1,16 +1,16 @@
 <view class="page">
   <view class="page__hd">
-    <view class="page__hd-style">当前患者：{{patient}}</view>
+    <view class="page__hd-style">当前患者：{{pat_name}}</view>
   </view>
   <view class="page__bd">
         <view class="weui-panel">
             <view class="weui-panel__hd">当前服药情况</view>
             <block class="weui-panel__bd" wx:for="{{list}}" data-item="item" wx:for-index="idx" wx:key="list">
                 <view class="weui-media-box weui-media-box_text">
-                    <view class="weui-media-box__desc">药品名称：{{item.Drugname}}</view>
-                    <view class="weui-media-box__desc">服用剂量：</view>
-                    <view class="weui-media-box__desc">服用方法：</view>
-                    <view class="weui-media-box__desc">具体时间：</view>
+                    <view class="weui-media-box__desc">药品名称：{{item.drug_name}}</view>
+                    <view class="weui-media-box__desc">服用剂量：{{item.dose}}</view>
+                    <view class="weui-media-box__desc">服用方法：{{item.methods}}</view>
+                    <view class="weui-media-box__desc">具体时间：{{item.spe_time}}</view>
                 </view>
             </block>
         </view>

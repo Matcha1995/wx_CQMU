@@ -1,3 +1,4 @@
+const app = getApp()
 Page({
   /* 页面的初始数据*/
   data: {
@@ -8,22 +9,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
-    wx.request({
-      url: 'http://www.danthology.cn/ezhan/api/test',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success: function (res) {
-        //将获取到的json数据，存在叫list这个数组中
-        that.setData({
-          list: res.data,
-          
-          //res代表success函数的事件对，data是固定的，list是数组
+    // let pat_id = wx.getStorageSync('prePatId')
+    app.fly.request(app.globalData.apiURL + 'getWarningInfo')
+      .then(res => {
+        this.setData({
+          list: res.data.data
         })
-        console.log(res.data)
-      }
-    })
+      })
+      .catch(err => {
+        console.log(err)
+      })
   },
 
   openConfirm: function (e) {
@@ -41,11 +36,16 @@ Page({
             success: function (res) {
                 console.log(res);
                 if (res.confirm) {
-                    // console.log(index)
-                    list.splice(index,1)
-                    that.setData({
-                      list:list
+                  app.fly.request(app.globalData.apiURL + 'confirmWarning', { pat_id: pat_id })
+                    .then(res => {
+                      list.splice(index, 1)
+                      that.setData({
+                        list: list
+                      })
                     })
+                    .catch(err=>{
+                      console.log(err)
+                    })   
                 }else{
                     console.log('用户点击辅助操作')
                 }

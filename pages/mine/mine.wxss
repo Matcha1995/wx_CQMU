@@ -96,5 +96,11 @@ input{
   color:#ccc;
 }
 
+/* 联系人样式 */
+.telephone{
+  color:#7D83C1;
+  font-size:30rpx;
+}
+
 /* 时间弹出框 */
 
