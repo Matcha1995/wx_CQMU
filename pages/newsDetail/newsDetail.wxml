@@ -1,0 +1,8 @@
+<view class="container">
+  <view class="news-title">
+    <text>{{title}}</text>
+  </view>
+  <view class="news-content">
+    <text>{{content}}</text>
+  </view>
+</view>

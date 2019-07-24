@@ -1,13 +1,27 @@
 <view class="container">
-  <view class="wrap">
+  
+  <view wx:if="{{showModalStatus}}">
+    <!-- 弹出的提示框 -->
+    <!-- mask -->
+    <view class="mask"></view>
+    <view class="modal">
+      <view class="modal-wrap">
+        <view class="modal-title">提示</view>
+        <text class="modal-content">请授权小程序获取您的头像和昵称进行登录</text>
+        <button class="weui-btn modal-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="allowToLogin">允许登录</button>
+      </view> 
+    </view>
+  </view>
+
+  <view class="wrap" wx:else>
     <view class="user flex-wrp">
       <view class="avatar flex-item">
-        <!-- <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>  -->
-        <open-data class="userinfo-avatar" type="userAvatarUrl"></open-data>
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image> 
+        <!-- <open-data class="userinfo-avatar" type="userAvatarUrl"></open-data> -->
       </view>
       <view class="user-info flex-item">
-        <!-- <text class="userinfo-nickname">{{userInfo.nickName}}</text> -->
-        <open-data class="userinfo-nickname" type="userNickName" lang="zh_CN"></open-data>
+        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        <!-- <open-data class="userinfo-nickname" type="userNickName" lang="zh_CN"></open-data> -->
       </view>
     </view>
     <view class="page__bd">
@@ -57,13 +71,13 @@
         <view class="weui-cells weui-cells_after-title hidden-radio {{showLinkView?'view_show':'view_hide'}}">
           <!-- <block class="weui-panel__bd" wx:for="{{list}}" data-item="item" wx:for-index="idx" wx:key="list"> -->
             <view class="weui-cell">
-              <view class="weui-cell__bd weui-cell_link telephone" bindtap="updateTel1">{{list.telephone1}}</view>
+              <view class="weui-cell__bd telephone" bindtap="updateTel1">{{list.telephone1}}</view>
             </view>
             <view class="weui-cell">
-              <view class="weui-cell__bd weui-cell_link telephone" bindtap="updateTel2">{{list.telephone2}}</view>
+              <view class="weui-cell__bd telephone" bindtap="updateTel2">{{list.telephone2}}</view>
             </view>
             <view class="weui-cell">
-              <view class="weui-cell__bd weui-cell_link telephone" bindtap="updateTel3">{{list.telephone3}}</view>
+              <view class="weui-cell__bd telephone" bindtap="updateTel3">{{list.telephone3}}</view>
             </view>
           <!-- </block> -->
           <!-- <view class="weui-cell weui-cell_link" bindtap="addTel">
@@ -71,9 +85,19 @@
           </view> -->
         </view>
         
-        <modal id="modal" hidden="{{hiddenTelModal}}" title="绑定联系人" confirm-text="确定" cancel-text="取消" bindcancel="telCancel" bindconfirm="telConfirm">  
+        <modal id="modal" hidden="{{hiddenTelModal1}}" title="绑定联系人1" confirm-text="确定" cancel-text="取消" bindcancel="telCancel1" bindconfirm="telConfirm1">  
             <view class="modal-input">
-              <input type='text' placeholder="请输入需要绑定联系人电话" placeholder-class="placeholderStyle" bindinput='getID' auto-focus/>
+              <input type='text' placeholder="请输入需要绑定联系人电话" placeholder-class="placeholderStyle" bindinput='getID1' auto-focus/>
+            </view>
+          </modal>
+          <modal id="modal" hidden="{{hiddenTelModal2}}" title="绑定联系人2" confirm-text="确定" cancel-text="取消" bindcancel="telCancel2" bindconfirm="telConfirm2">  
+            <view class="modal-input">
+              <input type='text' placeholder="请输入需要绑定联系人电话" placeholder-class="placeholderStyle" bindinput='getID2' auto-focus/>
+            </view>
+          </modal>
+          <modal id="modal" hidden="{{hiddenTelModal3}}" title="绑定联系人3" confirm-text="确定" cancel-text="取消" bindcancel="telCancel3" bindconfirm="telConfirm3">  
+            <view class="modal-input">
+              <input type='text' placeholder="请输入需要绑定联系人电话" placeholder-class="placeholderStyle" bindinput='getID3' auto-focus/>
             </view>
           </modal>
 
@@ -122,7 +146,7 @@
               </view>
           </view>
         </modal>
-
     </view>
   </view>
+
 </view>

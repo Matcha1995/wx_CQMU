@@ -49,18 +49,17 @@
                 <view class="weui-tab__content" hidden="{{activeIndex != 1}}">{{message}}
                   <block class="weui-panel__bd" wx:for="{{warning}}" data-item="item" wx:for-index="idx" wx:key="*this">
                     <view class="weui-media-box weui-media-box_text">
-                        <view class="weui-media-box__desc">药品名称：{{item.Drugname}}</view>
-                        <view class="weui-media-box__desc">服用剂量：</view>
-                        <view class="weui-media-box__desc">服用方法：</view>
-                        <view class="weui-media-box__desc">具体时间：</view>
+                        <view class="weui-media-box__desc">药品名称：{{item.drug_name}}</view>
+                        <view class="weui-media-box__desc">具体时间：{{item.time}}</view>
+                        <view class="weui-media-box__desc">服药错误类型：{{item.kinds}}</view>
                     </view>
                   </block>
                 </view>
                 <view class="weui-tab__content" hidden="{{activeIndex != 2}}">{{message}}
                   <block class="weui-panel__bd" wx:for="{{reminds}}" data-item="item" wx:for-index="idx" wx:key="*this">
                     <view class="weui-media-box weui-media-box_text">
-                        <view class="weui-media-box__desc">药品名称：{{item.Drugname}}</view>
-                        <view class="weui-media-box__desc">提醒次数：</view>
+                        <view class="weui-media-box__desc">药品名称：{{item.drug_name}}</view>
+                        <view class="weui-media-box__desc">提醒次数：{{item.count}}</view>
                     </view>
                   </block>
                 </view>

@@ -5,8 +5,8 @@
   <view class="page__bd">
         <view class="weui-panel">
             <view class="weui-panel__hd">服药告警情况</view>
-            <block class="weui-panel__bd" wx:for="{{list}}" data-index="{{index}}" wx:for-index="idx" wx:key="index">
-                <view class="weui-media-box weui-media-box_text"  bindlongpress='openConfirm'>
+            <block class="weui-panel__bd" wx:for="{{list}}" wx:key="index">
+                <view class="weui-media-box weui-media-box_text"  data-index="{{index}}" wx:for-index="idx" bindlongpress='openConfirm'>
                     <view class="weui-media-box__desc">患者编号：{{item.pat_id}}</view>
                     <view class="weui-media-box__desc">具体时间：{{item.time}}</view>
                     <view class="weui-media-box__desc">药品名称：{{item.drug_name}}</view>

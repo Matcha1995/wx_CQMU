@@ -1,16 +1,17 @@
 {
   "pages": [
-    "pages/manage/manage",
-    "pages/index/index",
     
+    "pages/index/index",
+    "pages/manage/manage",
     "pages/mine/mine",
     "pages/medicineDetail/medicineDetail",
     "pages/medicineWarning/medicineWarning",
     "pages/medicineRemind/medicineRemind",
-    "pages/historyManage/historyManage"
+    "pages/historyManage/historyManage",
+    "pages/newsDetail/newsDetail"
   ],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#74BCF5",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "white",
