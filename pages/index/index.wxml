@@ -1,38 +1,24 @@
 <view class="container">
   <view class="page-body">
     <!-- <view class="page-section page-section-spacing swiper"> -->
-      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" circular='{{circular}}' previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px">
-        <block wx:for="{{imgUrls}}" wx:key="{{index}}">
-          <swiper-item>
-            <image src="{{item.url}}" class="swiper-image"></image>
-          </swiper-item>
-        </block>
-      </swiper>
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" circular='{{circular}}' previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px">
+      <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+        <swiper-item>
+          <image src="{{item.url}}" class="swiper-image"></image>
+        </swiper-item>
+      </block>
+    </swiper>
     <!-- </view> -->
   </view>
   <view class="content">
-    <!-- <block wx:for="{{news}}" wx:for-index="idx" wx:for-item="item"  wx:key="{{index}}">
-        <view class="news-item" data-index="{{index}}" bindtap="toDetail">
-            <view class="news">
-                <view class="news-title">
-                    <a class="title-link">
-                        <text>{{item.title}}</text>
-                    </a>
-                </view>
-                <view class="news-content">
-                    <view bindtap="bindItemTap">
-                        <text class="content-txt">{{item.content}}</text>                      
-                    </view>
-                </view>
-            </view>
-        </view>
-    </block> -->
     <block class="weui-panel__bd" wx:for="{{news}}" wx:key="index">
-      <view class="weui-media-box weui-media-box_text news-item"  data-index="{{index}}" wx:for-index="idx" bindtap="toDetail">
-          <view class="weui-media-box__desc news-title">{{item.title}}</view>
-          <view class="weui-media-box__desc news-content">{{item.content}}</view>                
-        </view>
+      <view class="weui-media-box weui-media-box_text news-item" data-index="{{index}}" wx:for-index="idx" bindtap="toDetail">
+        <view class="weui-media-box__desc news-title">{{item.title}}</view>
+        <view class="weui-media-box__desc news-content">{{item.content}}</view>
+      </view>
     </block>
-    
   </view>
+  <!-- <view class="com-widget-goTop" bindtap="goTop">
+    <view class="icon-gotop">顶部</view>
+  </view> -->
 </view>

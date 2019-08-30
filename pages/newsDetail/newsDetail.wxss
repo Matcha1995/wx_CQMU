@@ -8,13 +8,16 @@
   position: relative;
     width: 650rpx;
     padding: 40rpx 50rpx 30rpx;
-    background: #298DE5;
-    color: #fff;
+    background: #ffffff;
+    color: #000;
     font-size: 38rpx;
     line-height: 48rpx;
+    text-align: center;
 }
 .news-content{
-  padding: 30rpx 40rpx;
+  padding: 0 20rpx;
   background: #ffffff;
   font-size: 30rpx;
+  text-indent: 2em;
+  text-align: justify;
 }

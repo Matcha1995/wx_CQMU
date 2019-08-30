@@ -10,7 +10,7 @@ Page({
     motto:"Hello World",
 
     //弹框
-    showModalStatus: true,
+    showModalStatus: false,
 
     //用户信息
     userInfo: {},
@@ -19,13 +19,13 @@ Page({
 
 
     //早饭时间
-    breakfastTime:["6:30","7:00","7:30","8:00"],
+    breakfastTime:["06:30-07:00","07:00-07:30","07:30-08:00","08:00-08:30"],
     breakfastTimeIndex:0,
     //午饭时间
-    lunchTime: ["11:30", "12:00", "12:30"],
+    lunchTime: ["11:00-11:30", "11:30-12:00", "12:00-12:30","12:30-13:00"],
     lunchTimeIndex: 0,
     //晚饭时间
-    supperTime:["18:00","18:30","19:00","19:30"],
+    supperTime:["17:30-18:00","18:00-18:30","18:30-19:00","19:00-19:30"],
     supperTimeIndex: 0,
 
 
@@ -90,6 +90,12 @@ radioChange: function (e) {
     radioItems[i].checked = radioItems[i].pat_id == e.detail.value;
     if (radioItems[i].checked == true){
       console.log(radioItems[i])
+      if (this.data.showLinkView){
+        this.setData({
+          showLinkView: (!this.data.showLinkView),
+          showLinkImage: (!this.data.showLinkImage)
+        })
+      }
       // 本地存储被选中的患者编号
       let pat_id = radioItems[i].pat_id
       wx.setStorageSync('prePatId', pat_id)
@@ -360,10 +366,11 @@ confirmTime: function () {
   let lunchIndex = this.data.lunchTimeIndex
   let lunch = this.data.lunchTime[lunchIndex]
   let supperIndex = this.data.supperTimeIndex
-  let supper = this.data.supperTime[supperIndex]
+  let dinner = this.data.supperTime[supperIndex]
+  console.log(dinner)
   // 获得被选中的pat_id
   let pat_id = wx.getStorageSync('prePatId')
-  app.fly.request(app.globalData.apiURL + 'setDinnerTime', { pat_id: pat_id, breakfast: breakfast, lunch: lunch, supper: supper})
+  app.fly.request(app.globalData.apiURL + 'setDinnerTime', { pat_id: pat_id, breakfast: breakfast, lunch: lunch, dinner: dinner})
     .then(res=>{
       this.setData({
         hiddenTimeModal: true
@@ -489,8 +496,12 @@ deletePatId:function(e){
               showModalStatus: false
             });
             return wxGetUserInfo();
-          } else
+          } else{
+            this.setData({
+              showModalStatus: true
+            })
             return Promise.reject("Not authorized!");
+          }
         }
       )
       .then(
@@ -500,8 +511,8 @@ deletePatId:function(e){
           app.globalData.userInfo = res.userInfo;
           console.log("Got your information from Wechat!");
           this.setData({
-            userInfo: res.userInfo,
-            showModalStatus: false
+            userInfo: res.userInfo
+            // showModalStatus: false
           });
           this.checkSession();
         }

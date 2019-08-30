@@ -8,7 +8,8 @@
     "pages/medicineWarning/medicineWarning",
     "pages/medicineRemind/medicineRemind",
     "pages/historyManage/historyManage",
-    "pages/newsDetail/newsDetail"
+    "pages/newsDetail/newsDetail",
+    "pages/setUserInfo/setUserInfo"
   ],
   "window": {
     "backgroundTextStyle": "dark",

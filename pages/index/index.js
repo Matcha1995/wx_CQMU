@@ -36,10 +36,21 @@ Page({
   //获取初始新闻
   getNews:function(){
     app.fly.request(app.globalData.apiURL+"getNews")
-    .then(ret=>{
-      this.setData({
-        news:ret.data,
-      })
+    .then(res=>{
+      
+      console.log(res.data.data)
+      if (res.data.data){
+        //获取数组长度
+        let length = res.data.data.length
+        this.setData({
+          news: res.data.data,
+          theFirstId: res.data.data[0].id,  //最大的id
+          theLastId: res.data.data[length - 1].id, //最小的id
+        })
+      }
+    })
+    .catch(err=>{
+      console.log(err)
     })
   },
   
@@ -86,9 +97,20 @@ Page({
     });
     app.fly.request(app.globalData.apiURL + 'getHistoryNews', { theFirstId: theFirstId, theLastId: theLastId })
       .then(res => {
-        this.setData({
-          news: res.data.data
-        })
+        if(res.data.data !=''){
+          let addNews = news.concat(res.data.data)
+          console.log(addNews)
+          this.setData({
+            news: addNews
+          })
+          console.log(this.data.news)
+        }else{
+          wx.showToast({
+            icon: "success",
+            title: "没有更多了"
+          })
+        }
+        
         wx.hideLoading()
       })
       .catch(err => {
@@ -103,38 +125,27 @@ Page({
     let title = news[index].title
     let content = news[index].content
     wx.navigateTo({
-      url: '../newsDetail/newsDetail?title=' + title + '&content=' + content,   //代餐跳转
+      url: '../newsDetail/newsDetail?title=' + title + '&content=' + content,   //带参跳转
     })
   },
 
-  onLoad: function (options) {
-
-    
-    // wx.showLoading({
-    //   title: "正在加载中",
-    //   mask: true
-    // })
-    // this.getUserInfoMagical().then(() => {
-    //   wx.hideLoading();
-    // })
-    // wx.removeStorageSync('skey')
-    app.fly.request(app.globalData.apiURL + 'getNews')
-      .then(res =>{
-        // console.log(res.data.data)
-        // 获取数组长度
-        let length = res.data.data.length
-        this.setData({
-          news: res.data.data,
-          theFirstId: res.data.data[0].id,  //最大的id
-          theLastId: res.data.data[length - 1].id, //最小的id
-        })
-        // console.log(res.data.data[0].id)
-        // console.log(res.data.data[length-1].id)
-        // wx.setStorageSync('theFirstId', res.data.data[0].id);
-        // wx.setStorageSync('theLastId', res.data.data[length - 1].id);
-        // console.log("本地存储的id为：" + wx.getStorageSync('theFirstId'))
-        // console.log("本地存储的id为：" + wx.getStorageSync('theLastId'))
-      })
-      .catch(err=>{})
+  onLoad: function (options) {   
+    wx.showLoading({
+      title: "正在加载中",
+      mask: true
+    })
+    setTimeout(()=>{
+      this.getNews()
+      wx.hideLoading()
+    },3000)
+    console.log(app.globalData.client_id)
   },
+
+
+  onshow:function(){
+    console.log("屏幕亮起")
+  },
+  obhide:function(){
+    console.log("屏幕被隐藏")
+  }
 })

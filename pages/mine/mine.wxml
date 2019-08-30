@@ -1,5 +1,4 @@
 <view class="container">
-  
   <view wx:if="{{showModalStatus}}">
     <!-- 弹出的提示框 -->
     <!-- mask -->

@@ -16,6 +16,7 @@
       </view>    
       <view class="text-style">
         <text>服药告警</text>
+        <view class="warning" hidden="{{hidden}}"></view>
       </view>
     </view>
   </view>

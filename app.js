@@ -8,13 +8,13 @@ App({
   nfly: new Fly,
   // 登录
   userLogin:function(){
-    let client_id = wx.getStorageSync('client_id')
-    // let client_id = this.globalData.client_id
+    // let client_id = wx.getStorageSync('client_id')
+    let client_id = this.globalData.client_id
     console.log(client_id)
     return wxlogin()
       .then(ret =>{
         if(ret.code){
-          return this.nfly.request(this.globalData.apiURL + "Login",{code:ret.code,client_id:client_id})
+          return this.nfly.request(this.globalData.apiURL + "Login",{code:ret.code})
         }else{
           Promise.reject("获取用户登录态失败")
         }
@@ -31,19 +31,14 @@ App({
   },
 
   onLaunch:function(){
-    wx.removeStorageSync('client_id')
+    // wx.removeStorageSync('client_id')
     console.log(this.globalData.websocketStatus)
     if (!this.globalData.websocketStatus){
       console.log("启动websocket")
-      this.openSocket();
+      this.openSocket();  
+      console.log("onlaunch中的client_id:"+this.globalData.client_id)
     }
 
-    // if (!this.globalData.socketStatus) {
-    //   console.log("启动websocket")
-    //   openSocket.connect(res => {
-    //     console.log(res)
-    //   });
-    // }
 
     // 配置请求基地址
     this.fly.config.baseURL = "https://danthology.cn/"
@@ -110,6 +105,7 @@ App({
       this.globalData.websocketStatus = true
       this.sendMessage();
     })
+
     // 断开时的动作
     wx.onSocketClose(() => {
       console.log('WebSocket 已断开')
@@ -119,35 +115,47 @@ App({
     wx.onSocketError(error => {
       console.error('socket error:', error)
     })
+
+
     // 监听服务器推送的消息
     wx.onSocketMessage(message => {
       console.log(message)
-      console.log(typeof message.data)
       let messageStr = message.data.replace(" ", "");
       console.log(messageStr)
       if (typeof messageStr != 'object') {
         messageStr = messageStr.replace(/\ufeff/g, ""); //重点
-        var jj = JSON.parse(messageStr);       
+        var jj = JSON.parse(messageStr);
         message = jj;
       }
       // console.log(message)
       // console.log(message.type)
       console.log("【websocket监听到消息】内容如下：");
-      if(message.type == 'init'){
+      if (message.type == 'init') {
         let client_id = message.client_id
         console.log(client_id)
-        // cb(client_id)
         this.globalData.client_id = client_id
         wx.setStorageSync('client_id', message.client_id)
+        console.log("onmessage中的client_id:" + this.globalData.client_id)
+        // 将client_id传给后台
+        this.fly.request(this.globalData.apiURL + "bindweb",{client_id:client_id})
+          .then(res=>{
+            console.log(res)
+          })
+          .catch(err=>{
+            console.log(err)
+          })
 
-      }else{
+
+      } else {
         let items = [];
         items.push(message)
         // console.log(items)
         this.globalData.callback(items)
-      }  
-    }) 
+      }
+    })
   },
+
+
   //关闭信道
   closeSocket() {
     if (this.globalData.websocketStatus) {
@@ -164,9 +172,11 @@ App({
       setInterval(()=>{
         //自定义的发给后台识别的参数
         wx.sendSocketMessage({
-          data: "test message"
+          data: "test message",
         })
       },3000)
+    }else{
+      console.log("send message error!")
     }
   },
  

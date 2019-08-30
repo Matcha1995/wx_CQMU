@@ -54,3 +54,20 @@ text{
   letter-spacing: 10rpx;
   color:#707070;
 }
+
+
+/* 做红点提示 */
+.warning{
+  display:inline-block;
+  width:15rpx;
+  height:15rpx;
+  border-radius: 50%;
+  background: red;
+  color:white;
+  font-size:30rpx;
+  line-height:35rpx;
+  justify-content: center;
+  text-align: center;
+
+
+}

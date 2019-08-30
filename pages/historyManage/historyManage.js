@@ -13,6 +13,9 @@ Page({
     sliderOffset: 0,
     sliderLeft: 0,
     message:'',
+    patient1:'',
+    patient2:'',
+    patient3:'',
     
     //开始时间和结束时间的初始化
     startDate:"0000-00-00",
@@ -40,7 +43,7 @@ Page({
         }else{
           _this.setData({
             drugs: res.data.data,
-            
+            patient1:res.data.pat_name
           })
         }
       })
@@ -68,7 +71,9 @@ Page({
           } else {
             _this.setData({
               drugs: res.data.data,
-              message: ''
+              message: '',
+              patient1:res.data.pat_name
+
             })
           }
         })
@@ -84,9 +89,11 @@ Page({
               message: '无历史告警信息!'
             })
           } else {
+            console.log(res.data)
             _this.setData({
               warning: res.data.data,
-              message: ''
+              message: '',
+              patient2: res.data.pat_name
             })
           }
         })
@@ -103,7 +110,8 @@ Page({
           } else {
             _this.setData({
               reminds: res.data.data,
-              message: ''
+              message: '',
+              patient3: res.data.pat_name
             })
           }
         })
