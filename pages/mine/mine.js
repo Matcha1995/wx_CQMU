@@ -25,7 +25,7 @@ Page({
     lunchTime: ["11:00-11:30", "11:30-12:00", "12:00-12:30","12:30-13:00"],
     lunchTimeIndex: 0,
     //晚饭时间
-    supperTime:["17:30-18:00","18:00-18:30","18:30-19:00","19:00-19:30"],
+    supperTime: ["17:30-18:00","18:00-18:30","18:30-19:00","19:00-19:30"],
     supperTimeIndex: 0,
 
 
@@ -109,6 +109,7 @@ radioChange: function (e) {
 
   //点击“添加更多”进行患者编号绑定
   addID: function () {
+
     this.setData({
       hiddenmodalput: !this.data.hiddenmodalput
     })
@@ -129,7 +130,7 @@ radioChange: function (e) {
   //确认按钮  
   confirm: function () {
     this.setData({
-      hiddenmodalput: true
+      hiddenmodalput: true,
     });
     console.log(this.data)
     let pat_id = this.data.pat_id;
@@ -340,9 +341,43 @@ showTel:function(){
 showTimeSetting:function(){
   let pat_id = wx.getStorageSync('prePatId')
   if(pat_id){
-    this.setData({
-      hiddenTimeModal: !this.data.hiddenTimeModal
-    })
+    app.fly.request(app.globalData.apiURL + 'getDinnerTime', { pat_id: pat_id })
+      .then(res=>{
+        let index1,index2,index3;
+        let breakfast = res.data.data.breakfast;
+        breakfast = breakfast.substr(0, 2) + ':' + breakfast.substr(2, 2) + '-' + breakfast.substr(5, 2) + ':' + breakfast.substr(7, 2);
+        let lunch = res.data.data.lunch;
+        lunch = lunch.substr(0, 2) + ':' + lunch.substr(2, 2) + '-' + lunch.substr(5, 2) + ':' + lunch.substr(7, 2);
+        let supper = res.data.data.dinner;
+        supper = supper.substr(0, 2) + ':' + supper.substr(2, 2) + '-' + supper.substr(5, 2) + ':' + supper.substr(7, 2);
+        for (let i = 0; i < this.data.breakfastTime.length;i++){
+          if (this.data.breakfastTime[i] === breakfast){
+            console.log(i)
+            index1 = i
+          }
+        }
+        for (let j = 0; j < this.data.lunchTime.length; j++) {
+          if (this.data.lunchTime[j] === lunch) {
+            console.log(j)
+            index2 = j
+          }
+        }
+        for (let k = 0; k < this.data.supperTime.length; k++) {
+          if (this.data.supperTime[k] === supper) {
+            console.log(k)
+            index3 = k
+          }
+        }
+        this.setData({
+          hiddenTimeModal: !this.data.hiddenTimeModal,
+          breakfastTimeIndex:index1,
+          lunchTimeIndex:index2,
+          supperTimeIndex:index3
+        })
+      })
+      .catch(err=>{
+        console.log(err)
+      })
   }else{
     wx.showToast({
       icon: "none",

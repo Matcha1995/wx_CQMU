@@ -93,6 +93,13 @@ App({
     )
   },
   
+  //显示onshow,设置在小程序内部一直保持常亮
+  onShow(options){
+    wx.setKeepScreenOn({
+      keepScreenOn:true
+    })
+    console.log("屏幕保持常亮")
+  },
   
   openSocket() {
     // 打开信道
@@ -180,7 +187,7 @@ App({
     }
   },
  
-
+  
   
   globalData: {
     header:{

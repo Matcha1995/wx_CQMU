@@ -1,9 +1,8 @@
 {
   "pages": [
-    
     "pages/index/index",
+    "pages/mine/mine", 
     "pages/manage/manage",
-    "pages/mine/mine",
     "pages/medicineDetail/medicineDetail",
     "pages/medicineWarning/medicineWarning",
     "pages/medicineRemind/medicineRemind",

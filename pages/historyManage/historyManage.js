@@ -41,9 +41,10 @@ Page({
             message: '无历史服药信息'
           })
         }else{
+          let patient1 = pat_id + ' - ' + res.data.pat_name
           _this.setData({
             drugs: res.data.data,
-            patient1:res.data.pat_name
+            patient1: patient1
           })
         }
       })
@@ -69,10 +70,12 @@ Page({
               message: '无历史服药信息!'
             })
           } else {
+            // 将患者编号和患者姓名拼成一个新的字符串
+            let patient1 = pat_id +' - '+res.data.pat_name;
             _this.setData({
               drugs: res.data.data,
               message: '',
-              patient1:res.data.pat_name
+              patient1: patient1
 
             })
           }
@@ -89,11 +92,29 @@ Page({
               message: '无历史告警信息!'
             })
           } else {
-            console.log(res.data)
+            let newData = [];
+            for (let i = 0; i < res.data.data.length; i++) {
+              // let id = res.data.data[i].id
+              // let pat_id = res.data.data[i].pat_id;
+              let drug_name = res.data.data[i].drug_name;
+              let drug_id = res.data.data[i].drug_id;
+              let kinds = res.data.data[i].kinds;
+              let time = res.data.data[i].time;
+              let y = time.substr(0, 4);
+              let m = time.substr(4, 2);
+              let d = time.substr(6, 2);
+              let h = time.substr(8, 2);
+              let minute = time.substr(10, 12);
+              time = y + "/" + m + "/" + d + " " + h + ":" + minute;
+              let data1 = { "drug_name": drug_name, "drug_id": drug_id, "kinds": kinds, "time": time };
+              newData.unshift(data1);
+            }
+            let patient2 = pat_id + ' - ' + res.data.pat_name
+            // console.log(pat_id,pat_name)
             _this.setData({
-              warning: res.data.data,
+              warning: newData,
               message: '',
-              patient2: res.data.pat_name
+              patient2: patient2
             })
           }
         })
@@ -108,10 +129,11 @@ Page({
               message: '无历史提醒信息!'
             })
           } else {
+            let patient3 = pat_id + ' - ' + res.data.pat_name
             _this.setData({
               reminds: res.data.data,
               message: '',
-              patient3: res.data.pat_name
+              patient3: patient3
             })
           }
         })

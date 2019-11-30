@@ -1,5 +1,8 @@
   {
     "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "新闻首页",
     "navigationBarTextStyle": "black",
-    "enablePullDownRefresh": true
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance": 10
+
   }

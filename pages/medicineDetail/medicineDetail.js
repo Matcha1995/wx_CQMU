@@ -3,7 +3,9 @@ Page({
   /* 页面的初始数据*/
   data: {
     // patient:'张三'
-    pat_name:''
+    pat_name:'',
+    space:' - ',
+    pat_id:''
   },
 
   /**
@@ -12,13 +14,17 @@ Page({
   onLoad: function (options) {
     console.log(wx.getStorageSync('prePatId'))
     let pat_id = wx.getStorageSync('prePatId')
+    // this.data.pat_id = pat_id;
       app.fly.request(app.globalData.apiURL + 'getPrevious', { pat_id: pat_id })
         .then(res => {
           console.log(res.data.data)
           console.log(res.data.pat_name)
+          let pat_name = pat_id + ' - ' + res.data.pat_name;
+          console.log(pat_id);
+          console.log(pat_name);
           if(res.data.data == ''){
             this.setData({
-              pat_name: res.data.pat_name
+              pat_name: pat_name
             })
             wx.showToast({
               icon: "none",
@@ -27,7 +33,7 @@ Page({
           }else{
             this.setData({
               list: res.data.data,
-              pat_name: res.data.pat_name
+              pat_name: pat_name
             })
           }
         })

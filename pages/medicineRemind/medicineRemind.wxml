@@ -1,6 +1,6 @@
 <view class="page">
   <view class="page__hd">
-    <view class="page__hd-style">当前患者：{{patient}}</view>
+    <view class="page__hd-style">当前患者：{{pat_name}}</view>
   </view>
   <view class="page__bd">
         <view class="weui-panel">

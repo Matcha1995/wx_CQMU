@@ -21,8 +21,26 @@ Page({
           }) 
           wx.removeStorageSync('item')
         }else{
+          let newData = [];
+          for(let i=0;i<res.data.data.length;i++){
+            let id = res.data.data[i].id
+            let pat_id = res.data.data[i].pat_id;
+            let drug_name = res.data.data[i].drug_name;
+            let drug_id = res.data.data[i].drug_id;
+            let kinds = res.data.data[i].kinds;
+            let time = res.data.data[i].time;
+            let y = time.substr(0,4);
+            let m = time.substr(4, 2);
+            let d = time.substr(6,2);
+            let h = time.substr(8,2);
+            let minute = time.substr(10,12);
+            time = y+"/"+m+"/"+d+" "+h+":"+minute;
+            let data1 = { "id": id, "pat_id": pat_id, "drug_name": drug_name, "drug_id": drug_id,"kinds":kinds,"time":time};
+            newData.unshift(data1);
+          }
+          console.log(newData);
           this.setData({
-            list: res.data.data
+            list: newData
           })
           wx.setStorageSync('item', res.data.data)
         }

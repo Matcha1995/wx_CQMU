@@ -2,7 +2,7 @@ const app = getApp()
 Page({
   /* 页面的初始数据*/
   data: {
-    patient: ''
+    pat_name: '',
   },
 
   /**
@@ -12,9 +12,10 @@ Page({
     let pat_id = wx.getStorageSync('prePatId')
       app.fly.request(app.globalData.apiURL + 'getRemindInfo', { pat_id: pat_id })
         .then(res => {
+          let pat_name = pat_id + ' - ' + res.data.pat_name;
           if(res.data.data == ''){
             this.setData({
-              patient: res.data.pat_name
+              pat_name: pat_name
             })
             wx.showToast({
               icon: "none",
@@ -24,7 +25,7 @@ Page({
           }else{
             this.setData({
               list: res.data.data,
-              patient: res.data.pat_name
+              pat_name: pat_name
             })
           }
         })
